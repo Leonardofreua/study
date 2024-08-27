@@ -29,9 +29,9 @@ Can lead to data loss, data disclosure to unauthorized parties, or data manipula
 Avoid:
 - Compare user ID extracted from JWT token with the vulnerable ID parameter.
 
-*References:*
-1 - [API1:2023 Broken Object Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/)
-2 - [CWE-285: Improper Authorization](https://cwe.mitre.org/data/definitions/285.html)
+*References:*<br />
+1 - [API1:2023 Broken Object Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa1-broken-object-level-authorization/)<br />
+2 - [CWE-285: Improper Authorization](https://cwe.mitre.org/data/definitions/285.html)<br />
 3 - [CWE-639: Authorization Bypass Through User-Controlled Key](https://cwe.mitre.org/data/definitions/639.html)
 
 # #2 Broken Authentication
@@ -77,9 +77,39 @@ changing of sensive information.
 * Implement weak-password checks;
 * API keys should not be used for user authentication. They should only be used for API clients (Ref. 4) authentication.
 
-*References:*
-
-1 - [API2:2023 Broken Authentication](https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/)
-2 - [CWE-204: Observable Response Discrepancy](https://cwe.mitre.org/data/definitions/204.html)
-3 - [CWE-307: Improper Restriction of Excessive Authentication Attempts](https://cwe.mitre.org/data/definitions/307.html)
+*References:*<br />
+1 - [API2:2023 Broken Authentication](https://owasp.org/API-Security/editions/2023/en/0xa2-broken-authentication/)<br />
+2 - [CWE-204: Observable Response Discrepancy](https://cwe.mitre.org/data/definitions/204.html)<br />
+3 - [CWE-307: Improper Restriction of Excessive Authentication Attempts](https://cwe.mitre.org/data/definitions/307.html)<br />
 4 - [Why and When to use API Keys](https://cloud.google.com/endpoints/docs/openapi/when-why-api-key)
+
+# #3 Broken Object Property Level Authorization
+
+> Authorization
+
+### Description
+
+Exploit of endpoints by reading and/or modifying values of objects. 
+
+An API endpoint is vulnerable if:
+
+* The API endpoint exposes properties of an object that are considered sensive and should not be read by the user. For example: an object that represents an entity in the database (Excessive Data Exposure).
+
+* The API endpoint allows a user to change, add/or delete the value of a sensive object's property which the user should not be able to access (Mass Assignment).
+
+### Risk
+
+Unauthorized access to private/sensitive object properties may result in data disclosure, data loss, or data corruption. Under certain circumstances, unauthorized access to object properties can lead to privilege escalation or partial/full account takeover.
+
+### Prevention
+
+* Return only minimum amount of data required for the use case;
+* When exposing an object, always make sure that the user should have access to the object's properties you expose;
+* Create objects containing specific properties that you want to return;
+* Allow changes only to the object's properties that should be updated by the client;
+* Implement a schema-based response validation mechanism as an extra layer of security. As part of this mechanism, define and enforce data returned by all API methods (e.g.: https://json-schema.org/).
+
+*References:*<br />
+1 - [API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/)<br />
+2 - [CWE-213: Exposure of Sensitive Information Due to Incompatible Policies](https://cwe.mitre.org/data/definitions/213.html)<br />
+3 - [CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)
