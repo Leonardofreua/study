@@ -149,3 +149,33 @@ An API will be considerd vulnerable if at least one of the following limits is m
 2 - [CWE-770: Allocation of Resources Without Limits or Throttling](https://cwe.mitre.org/data/definitions/770.html)<br />
 3 - [CWE-400: Uncontrolled Resource Consumption](https://cwe.mitre.org/data/definitions/400.html)<br />
 4 - [CWE-799: Improper Control of Interaction Frequency](https://cwe.mitre.org/data/definitions/799.html)
+
+# #5 Broken Function Level Authorization
+
+Abuse of API functionality to improperly modify objects (create, update, delete).
+
+Often involves replaceing passive methods (GET) with active (PUT, DELETE).
+
+An API will be vulnerable if regular users with low-level roles can access resources owned by users with higher roles.
+
+### Risks
+
+Administrative functions are keys to targets for this type of attack.
+
+* May be used to escalate privilege;
+* Can be exploited to modify account details;
+* May lead to data disclosure;
+* Data loss;
+* Data corruption;
+* Service disruption.
+
+### Prevention
+
+* Identify functions that expose high sensitivity capability and develop controls to limit access;
+* Implement continuous release testing to ensure proper behavior;
+* The enforcement mechanism(s) should deny all access by default, requiring explicit grants to specific roles for access to every function;
+* Make sure that all of your administrative controllers inherit from an administrative abstract controller that implements authorization checks based on the user's group/role.
+
+*References:*<br />
+1 - [API5:2023 Broken Function Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/)<br />
+2 - [CWE-285: Improper Authorization](https://cwe.mitre.org/data/definitions/285.html)
