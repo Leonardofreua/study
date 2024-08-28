@@ -4,8 +4,6 @@
 
 *Attacker authenticates as User A and then retrieves data on User B.*
 
-### Description
-
 Most common and damaging API vulnerability.
 
 Manipulation of APIs to access data/objects belonging to other user. Usually through
@@ -37,8 +35,6 @@ Avoid:
 # #2 Broken Authentication
 
 > Authentication
-
-### Description
 
 Authentication mechanism is an easy target for attackers since it's exposed to everyone.
 
@@ -87,8 +83,6 @@ changing of sensive information.
 
 > Authorization
 
-### Description
-
 Exploit of endpoints by reading and/or modifying values of objects. 
 
 An API endpoint is vulnerable if:
@@ -113,3 +107,45 @@ Unauthorized access to private/sensitive object properties may result in data di
 1 - [API3:2023 Broken Object Property Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa3-broken-object-property-level-authorization/)<br />
 2 - [CWE-213: Exposure of Sensitive Information Due to Incompatible Policies](https://cwe.mitre.org/data/definitions/213.html)<br />
 3 - [CWE-915: Improperly Controlled Modification of Dynamically-Determined Object Attributes](https://cwe.mitre.org/data/definitions/915.html)
+
+# #4 Unrestricted Resource Consumption
+
+Abuse of APIs due to high volumes of API calls, large requests, etc. Multiple concurrent
+requests performed from a single local computer or by using cloud computing resources. Most of the automated tools available are designed to cause DoS via high loads of traffic, impacting APIs service rate.
+
+An API will be considerd vulnerable if at least one of the following limits is missing or set inappropriately (e.g. too low/high):
+
+* Execution timeouts;
+* Maximum allocable memory;
+* Maximum number of files descriptors;
+* Maximum number of processos;
+* Maximum upload file size;
+* Number of operations to perform in a single API client request (e.g. batches);
+* Number of records per page to return in a single request-response;
+* Third-party service providers' speding limit.
+
+### Risks
+
+* Daniel of Service (DoS);
+* Operation costs due to higher CPU demand, increasing cloud storage needs;
+* Performance Impact;
+* Mass data hervesting.
+
+### Prevention
+
+* Implement traffic controls;
+* Test effectiveness of controls
+* Use containers / Serverless code (e.g. Lambdas) to limit memory, CPU, number of restarts, file descriptors and processes;
+* Define and enforce a maximum size of data on all incoming parameters and payloads, such as
+  maximum length for strings, numbers of elements in arrays, and maximum upload file size (regardless of whether it is stored locally or in cloud storage);
+* Implement a limit on how often a client can interact with the API within a defined timeframe (RATE LIMITING);
+* Rate limiting should be fine tuned based on the business needs. Some API endpoints might require stricter policies;
+* Limit/throttle how many times or how often a single API client/user can execute a single operation (e.g. validate an OTP, or request password recovery without visiting the one-time URL);
+* Add proper server-side validation for query string and request body parameters, specifically the one that controls the number of records to be returned in the response;
+* Configure spending limits for all service providers/API integrations. When setting spending limits is not possible, billing alerts should be configured instead.
+
+*References:*<br />
+1 - [API4:2023 Unrestricted Resource Consumption](https://owasp.org/API-Security/editions/2023/en/0xa4-unrestricted-resource-consumption/)<br />
+2 - [CWE-770: Allocation of Resources Without Limits or Throttling](https://cwe.mitre.org/data/definitions/770.html)<br />
+3 - [CWE-400: Uncontrolled Resource Consumption](https://cwe.mitre.org/data/definitions/400.html)<br />
+4 - [CWE-799: Improper Control of Interaction Frequency](https://cwe.mitre.org/data/definitions/799.html)
