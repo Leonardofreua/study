@@ -179,3 +179,39 @@ Administrative functions are keys to targets for this type of attack.
 *References:*<br />
 1 - [API5:2023 Broken Function Level Authorization](https://owasp.org/API-Security/editions/2023/en/0xa5-broken-function-level-authorization/)<br />
 2 - [CWE-285: Improper Authorization](https://cwe.mitre.org/data/definitions/285.html)
+
+# #6 Unrestricted Access to Sensitive Business Flows
+
+Abuse of a legitimate business workflow through excessive, automated use Rate limiting, captchas not always effective agains fraudulent trafic.
+
+Rapid IP rotation makes detection difficult.
+
+Typically a result of application logic flaw.
+
+Exploitation usually involves understanding the business model backed by the API, finding sensitive business flows, and automating access to these flows, causing harm to the business.
+
+### Risks
+
+* Loss of critical business activity;
+* Prevent legitimate users from purchasing a product (e.g. automated ticket purchasing):
+  * An attacker can buy all the stock of a high-demand item at once and resell for a higher price (scalping)
+* Creating a comment/post flow:
+  * an attacker can spam the system
+* making a reservation:
+  * an attacker can reserve all the available time slots and prevent other users from using the system
+* Lead to inflation in the internal economy of a game.
+
+An API Endpoint is vulnerable if it exposes a sensitive business flow, without appropriately restricting the access to it.
+
+### Prevention
+
+* Implement fraudulent traffic detection and control:
+  * Using either captcha or more advanced biometric solutions (e.g. typing patterns)
+  * Analyze the user flow to detect non-human patterns (e.g. the user accessed the "add to cart" and "complete purchase" functions in less than one second)
+  * Consider blocking IP addresses of Tor exit nodes and well-known proxies
+* Setup and automate testing of control mechanisms;
+* Identify the business flows that might harm the business if they are excessively used;
+* 
+
+*References:*<br />
+1 - [Unrestricted Access to Sensitive Business Flows](https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/)
