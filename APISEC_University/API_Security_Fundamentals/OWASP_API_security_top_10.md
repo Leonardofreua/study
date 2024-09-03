@@ -210,8 +210,43 @@ An API Endpoint is vulnerable if it exposes a sensitive business flow, without a
   * Analyze the user flow to detect non-human patterns (e.g. the user accessed the "add to cart" and "complete purchase" functions in less than one second)
   * Consider blocking IP addresses of Tor exit nodes and well-known proxies
 * Setup and automate testing of control mechanisms;
-* Identify the business flows that might harm the business if they are excessively used;
-* 
+* Identify the business flows that might harm the business if they are excessively used.
 
 *References:*<br />
-1 - [Unrestricted Access to Sensitive Business Flows](https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/)
+1 - [API6:2023 Unrestricted Access to Sensitive Business Flows](https://owasp.org/API-Security/editions/2023/en/0xa6-unrestricted-access-to-sensitive-business-flows/)
+
+# #7 Server Side Request Forgery
+
+*Exploiting URL inputs to make a request a malicious servers.*
+
+Exploitation requires the attacker to find an API endpoint that access a URI that's provided by the client. 
+
+* SSRF occur when an API is fetching a remote resource without validating the user-supplied URL. It enables an attacker to coerce the application to send a crafted request to an unexpected destination, even when protected by a firewall or a VPN;
+* More common: The following concepts encourage developers to access an external resource based on user input: Webhooks, file fetching from URLs, custom SSO, and URL previews;
+* More Dangerous: Modern technologies like cloud providers, Kubernetes, and Docker expose management and control channels over HTTP on predictable, well-known paths. Those channels are an easy target for an SSRF attack;
+* Local file injection (LFI) can lead to a SSRF.
+
+### Risks
+
+* Might lead to internal services enumeration (e.g. port scanning);
+* Information disclosure;
+* Bypassing firewalls or other security mechanisms;
+* In some cases, it can lead to DoS or the server being used as a proxy to hide malicious activities.
+
+### Prevention
+
+* Validate and sanitize ALL user-supplied information, including URL parameters;
+* Ensure communication only permitted with trusted resources;
+* Test URL validation effectiveness;
+* Whenever possible, use allow lists of:
+  * Remote origins users are expected to download resources from (e.g. Google Drive, Gravatar, etc.)
+  * URL schemes and ports
+  * Accepted media types for a given functionality
+* Disable HTTP redirections;
+* Use a well-tested and maintained URL parser to avoid issues caused by URL parsing inconsistencies.
+* Do not send raw responses to clients.
+
+
+*References:*<br />
+1 - [API7:2023 Server Side Request Forgery](https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery/)<br />
+2 - [CWE-918: Server-Side Request Forgery (SSRF)](https://cwe.mitre.org/data/definitions/918.html)
