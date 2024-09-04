@@ -292,3 +292,36 @@ Missing security patches on libraries and applications used within our service. 
 6 - [CWE-388: Error Handling](https://cwe.mitre.org/data/definitions/388.html)<br />
 7 - [CWE-444: Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')](https://cwe.mitre.org/data/definitions/444.html)<br />
 8 - [CWE-942: Permissive Cross-domain Policy with Untrusted Domains](https://cwe.mitre.org/data/definitions/942.html)<br />
+
+# #9 Improper Inventory Management
+
+Unauthorized access through old API versions or endpoints left running unpatched and using weaker security requirements. In some cases exploits are available. Alternatively, they may get access to sensitive data through a 3rd party with whom there's no reason to share data with.
+
+* The purpose of an API host is unclear, and there are no explicit answers to the following questions:
+    * Which environment is the API running in (e.g. production, staging, test, development)?
+    * Who should have network access to the API (e.g. public, internal, partners)?
+    * Which API version is running?
+* There is no retirement plan for each API version.
+* The host's inventory is missing or outdated.
+* There is a "sensitive data flow" where the API shares sensitive data with a third party and
+    * There is not a business justification or approval of the flow
+    * There is no inventory or visibility of the flow
+    * There is not deep visibility of which type of sensitive data is shared
+
+### Risks
+
+* Expose sensitve data or event take over the server;
+* Sometimes different API versions/deployments are connected to the same database with real data;
+* Exploint deprecated endpoints available in old API versions to get access to administrative functions or exploit known vulnerabilities.
+
+### Prevention
+
+* Deploy/manage all APIs in Gateway;
+* Define rules for versioning and retirement;
+* Periodically audit 3rd party access;
+* Document all aspects of your API such as authentication, errors, redirects, rate limiting, cross-origin resource sharing (CORS) policy, and endpoints, including their parameters, requests, and responses;
+* Avoid using production data with non-production API deployments. If this is unavoidable, these endpoints should get the same security treatment as the production ones.
+
+*References:*<br />
+1 - [API9:2023 Improper Inventory Management](https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management/)<br />
+2 - [CWE-1059: Incomplete Documentation](https://cwe.mitre.org/data/definitions/1059.html)
