@@ -325,3 +325,32 @@ Unauthorized access through old API versions or endpoints left running unpatched
 *References:*<br />
 1 - [API9:2023 Improper Inventory Management](https://owasp.org/API-Security/editions/2023/en/0xa9-improper-inventory-management/)<br />
 2 - [CWE-1059: Incomplete Documentation](https://cwe.mitre.org/data/definitions/1059.html)
+
+# #10 Unsafe Consumption of APIs
+
+Exposures can occur via use of 3rd party APIs, which are generally trusted. However, 3rd parties can be exploited, which can be used to attack APIs that rely on them.
+
+* Interacts with other APIs over an unencrypted channel;
+* Does not properly validate and sanitize data gathered from other APIs prior to processing it or passing it to downstream components;
+* Blindly follows redirections;
+* Does not limit the number of resources available to process third-party services responses;
+* Does not implement timeouts for interactions with third-party services;
+
+### Risks
+
+* May lead to sensitve information exposure to unauthorized actors;
+* Many kinds of injections;
+* Deniel Of Service.
+
+### Prevention
+
+* When evaluating service providers, assess their API security posture.
+* Ensure all API interactions happen over a secure communication channel (TLS).
+* Always validate and properly sanitize data received from integrated APIs before using it.
+* Maintain an allowlist of well-known locations integrated APIs may redirect yours to: do not blindly follow redirects.
+
+*References:*<br />
+1 - [API10:2023 Unsafe Consumption of APIs](https://owasp.org/API-Security/editions/2023/en/0xaa-unsafe-consumption-of-apis/)<br />
+2 - [CWE-20: Improper Input Validation](https://cwe.mitre.org/data/definitions/20.html)<br />
+3 - [CWE-200: Exposure of Sensitive Information to an Unauthorized Actor](https://cwe.mitre.org/data/definitions/200.html)<br />
+4 - [CWE-319: Cleartext Transmission of Sensitive Information](https://cwe.mitre.org/data/definitions/319.html)
