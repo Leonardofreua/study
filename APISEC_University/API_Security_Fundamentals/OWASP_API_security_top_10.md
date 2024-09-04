@@ -250,3 +250,45 @@ Exploitation requires the attacker to find an API endpoint that access a URI tha
 *References:*<br />
 1 - [API7:2023 Server Side Request Forgery](https://owasp.org/API-Security/editions/2023/en/0xa7-server-side-request-forgery/)<br />
 2 - [CWE-918: Server-Side Request Forgery (SSRF)](https://cwe.mitre.org/data/definitions/918.html)
+
+# #8 Security Misconfiguration
+
+This is a pretty broad category that basically encompasses all kinds of vulnerabilities that can result from misconfiguration, whether it's on the servers, the infrastructure the network, the application themselves. It could be unpatched systems or services that shouldn't be running, common endpoints, services running with insecure default configurations, or unprotected files and directories to gain unauthoerized access or knowledge of the system.
+
+Missing security patches on libraries and applications used within our service. Unnecessary features enabled, no need to have SFTP enabled on a server if that's not a requirement for the application to run. Missing encryption, transport layer security. You want to make sure that your APIs can only be accessed by properly identified and approved sources. So if you've got missing CORS (Cross Origin Resource Sharing) policies, that's another potential source of a vulnerability.
+
+* Appropriate security hardening is missing across any part of the API stack, or if there are improperly configured permissions on cloud services;
+* The latest security patches are missing, or the systems are out of date;
+* Unnecessary features are enabled (e.g. HTTP verbs, logging features);
+* There are discrepancies in the way incoming requests are processed by servers in the HTTP server chain;
+* Transport Layer Security (TLS) is missing;
+* Security or cache control directives are not sent to clients;
+* A Cross-Origin Resource Sharing (CORS) policy is missing or improperly set;
+* Error messages include stack traces, or expose other sensitive information.
+
+### Risks
+
+* Expose sensitive data;
+* Expose system details that can lead to ful server compromise.
+
+### Prevention
+
+* Implement hardening procedures;
+* Routinely review configurations;
+* Implement automated, continuos security testing;
+* Be specific about which HTTP verbs each API can be accessed by: all other HTTP verbs should be disabled (e.g. HEAD);
+* APIs expecting to be accessed from browser-based clients (e.g., WebApp front-end) should, at least:
+    * implement a proper Cross-Origin Resource Sharing (CORS) policy
+    * include applicable Security Headers
+* Restrict incoming content types/data formats to those that meet the business/ functional requirements.
+* Where applicable, define and enforce all API response payload schemas, including error responses, to prevent exception traces and other valuable information from being sent back to attackers.
+
+*References:*<br />
+1 - [API8:2023 Security Misconfiguration](https://owasp.org/API-Security/editions/2023/en/0xa8-security-misconfiguration/)<br />
+2 - [CWE-2: Environmental Security Flaws](https://cwe.mitre.org/data/definitions/2.html)<br />
+3 - [CWE-16: Configuration](https://cwe.mitre.org/data/definitions/16.html)<br />
+4 - [CWE-209: Generation of Error Message Containing Sensitive Information](https://cwe.mitre.org/data/definitions/209.html)<br />
+5 - [CWE-319: Cleartext Transmission of Sensitive Information](https://cwe.mitre.org/data/definitions/319.html)<br />
+6 - [CWE-388: Error Handling](https://cwe.mitre.org/data/definitions/388.html)<br />
+7 - [CWE-444: Inconsistent Interpretation of HTTP Requests ('HTTP Request/Response Smuggling')](https://cwe.mitre.org/data/definitions/444.html)<br />
+8 - [CWE-942: Permissive Cross-domain Policy with Untrusted Domains](https://cwe.mitre.org/data/definitions/942.html)<br />
