@@ -128,3 +128,27 @@
 <p align="center">
   <img alt="mock" width="600" src="images/design_guide_example_2.jpg">
 </p>
+
+## Testing
+
+<p align="center">
+  <img alt="mock" width="600" src="images/testing.png">
+</p>
+
+* The best practice is to make security testing part of your overall testing program;
+* It should also be getting tested for security as part of your CI/CD pipeline so that every single release gets evaluated.
+* Most of security tests tends to look at things like cross-site scripting, injections, buffer overflow attacks and the like:
+  * But most vulnerabilities come from logic flaws in the application itself
+  * Make sure that your testing program looks way beyond the standard playbook type of tests
+
+<p align="center">
+    <img alt="mock" width="600" src="images/the_need_for_api_first_testing.png">
+</p>
+
+* Historically, application testing has focused on the UI layer itself;
+  * What attackers are doing is simply going around that, right to the API itself
+* The concept of API-First testing is important because the most vulnerabilities found by attackers originate at the API layer (not in UI layer), among which we can mention: Lack of authentication, lack of authorization and expose data in vast quantities.
+
+<p align="center">
+    <img alt="mock" width="600" src="images/testing_categories.jpg">
+</p>
