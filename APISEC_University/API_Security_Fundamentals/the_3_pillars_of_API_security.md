@@ -152,3 +152,64 @@
 <p align="center">
     <img alt="mock" width="600" src="images/testing_categories.jpg">
 </p>
+
+## Monitoring
+
+<p align="center">
+    <img alt="mock" width="600" src="images/monitoring.png">
+</p>
+
+>Understanding how your APIs are performing and operating in productio;
+
+* **Runtime Protection includes:**
+  * Policy enforcement;
+  * Requiring authentication of users to access endpoints;
+  * Filtering traffic: Maybe geographic filter, for example: expecting traffic from a certain region or IP address and so forth.
+  
+* **Threat Detection:**
+  * Look for things like fraudulent transactions;
+  * Fraudulent traffic
+  * Distribuited attacks coming from lots of different sources that are targeting similar resources;
+
+*  **Incident Response:**
+   * You could capture all the traffic, log it all, put it into a repository, and then retrace the steps to understand what happened;
+   * And finally then implement the appropriate mitigating controls for future similar attacks.
+ 
+* **Validate Controls:**
+  * Make sure that all the controls that you've implemented at the gateway, at the firewall, and in the application itself are functioning as designed (No surprises in production).
+
+### Monitoring Approaches
+
+<p align="center">
+    <img alt="mock" width="600" src="images/monitoring_approaches.png">
+</p>
+
+* **Proactive Blocking:**
+  * Here's where you can actually enforce policy;
+  * You can define in a gateway that certain endpoints are only accessible with valid authentication;
+  * Through a firewall you can implement rate limiting or IP whitelisting.
+
+* **Reactive Alerting:**
+  * Log monitoring (log management solution);
+  * Alerts;
+  * Using a SIM (Security information and event management);
+  * API threat management tool
+  * Understand the traffic through alerts to determine whether it's legitimate traffic or not. From here, refine the alert rules.
+
+<p align="center">
+    <img alt="mock" width="600" src="images/monitoring_api_discovery.png">
+</p>
+
+* **Benefit of monitoring:**
+  * Watch what's happening on the wire, on your network, to identify APIs that are in use and active on your network;
+  * Useful for generating that inventory and discover APIs that were undiscovered or unknown APIs or unknown endpoints;
+
+<p align="center">
+    <img alt="mock" width="600" src="images/limitations_of_monitoring.png">
+</p>
+
+* **Limitations of Monitoring:**
+  * Live traffic has very limited context;
+  * The Coinbase example, where user A was trading crypto on behalf of user B. An inline tool will only see an HTTP request that identifies a source account, a destination account and some other transaction details;
+    * That's why we implement Authorization at the application logic level.
+  * In many cases, many API monitoring technologies may require sharing your traffic data with third parties. That may be a violation of privacy and can cause bandwidth concerns or even latency.
