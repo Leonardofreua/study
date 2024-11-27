@@ -65,3 +65,14 @@ Scenario:
 * Imagine the topic to be an array, now due to memory constraint we have split the single array into 4 different smaller array;
 * The numbers on the blocks in this picture denote the **Offset** the first block is at the 0th offset and the last block would on the (n-1)th offset;
 * Please note that on Kafka it is not going to be an actual array but a symbolic one
+
+### Producer
+
+* Is an external application that writes messages to a Kafka cluster, communicating with the cluster using Kafka's network protocol;
+* Is responsability of the Producer to diced which partition to send the messages to. Let's take a look at the producer configuration criteria:
+  * **No Key specified:** When no key is specified in the message, the producer will randomly decide partition and would try to balance the total number of messages on all partitions
+  * **Key Specified:** When a key is specified, then the producer uses [Consistent Hashing](https://www.toptal.com/big-data/consistent-hashing) to map the key to a partition
+    * Consistent Hashing is a mechanism where for the same key same hash is generated always, and it minimizes the redistribution of keys on a re-hashing scenario like a node add or a node removal tot he cluster.
+  * **Partition Specified:** You can hardcode the destination partition as well.
+  * **Custom Partitioning logic:** We can write some rules depending on which the partition can be decided.
+* 
