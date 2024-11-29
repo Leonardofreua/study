@@ -29,6 +29,29 @@
   * Is used to determine the destination partition for message
 * Events are immutable. It's impossible to change the past
 
+### Offset
+
+**What is?**
+* Each message in a partition is given a unique sequential number called Offset
+* Is essentially an identifier that marks the position of a message within a partition
+* It's immutable and ever-increasing
+
+**How does it work?** 
+* A message receives a offset when it's produced
+* Consumers in turn, uses the offsets to read the messages from partitions
+* Each consumer keeps track of the last offset read in each partition, allowing it to know where to continue reading the next time he goes to retrieve messages
+
+**Control Flow:**
+* Offset allows consumers to read messages at their own pace
+* They can pause, resume, or restart reading from a specific offset, providing precise controle over the data flow
+
+**Failure Recovery:**
+* Consumers can restart reading from last confirmed offset, ensuing that no messages are lost
+* This is especially important for distributed systems, where failures can occur at any time
+
+** Parallel processing:**
+* Each partition has its own offsets, multiples consumers can process messages in parallel, increasing the efficiency and scalability of the system
+
 ### Topic
 
 <p align="center">
