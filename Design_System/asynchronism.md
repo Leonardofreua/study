@@ -81,7 +81,7 @@ Scenario:
   * When we split data of a topic into multiple stream, we call all of those streams the "Partition" of the topic
 
 <p align="center">
-  <img alt="mock" width="500" src="images/kafka">
+  <img alt="mock" width="500" src="images/kafka_partitions.png">
 </p>
 
 * The blocks avobe are the different messages in that partition
@@ -98,4 +98,52 @@ Scenario:
     * Consistent Hashing is a mechanism where for the same key same hash is generated always, and it minimizes the redistribution of keys on a re-hashing scenario like a node add or a node removal tot he cluster.
   * **Partition Specified:** You can hardcode the destination partition as well.
   * **Custom Partitioning logic:** We can write some rules depending on which the partition can be decided.
-* 
+
+### Consumer
+
+* Read messages from partitions in the same order they were produced in the topic;
+* Since every message has an offset, every time a consumer reads a message it stores the offset value onto Kafka or Zookeeper, denoting that it's the last message that the consumer read
+* SO in case, a consumer node goes down, it can come back and resume from the last read position
+* Also if at any point in time a consumer needs to go back in time and read older message, it can do so by just restting the offset position
+
+### Consumer Group
+
+Collection of consumers that work together to read messages from a topic.
+
+1. **Fan out exchange:**
+> A single topic can be subscribed to by multple consumer groups
+
+Example:
+- You need to send content via E-mail and SMS
+- OTP service put the content in OTP Topic
+- And then, the SMS Service consumer group and Email service consumer group can both receive the message and can then send the content out
+
+<p align="center">
+    <img alt="mock" width="500" src="images/consumer_group_otp_example.png">
+</p>
+
+2. **Order guarantee:**
+
+One partition can not be read by multiple consumers in the same consumer group. This is enabled by the consumer group only, only one consumer in the group gets to read from a single partition.
+
+Example:
+- Your producer produces 6 messages
+- Each message is a key-value pair, for key "A" value is "1", for "C" value is "1", and so on.
+- Our topic has 3 partitions, and due to consistent hashing messages with the same key always go to the same partition, so all the messages with "A" as the key will get grouped and the same for B and C.
+- Each partition has only one consumer, so they get message in order only
+  - **The consumer will receive A1 before A2 and B1 before B2, and thus the order is maintained!!**
+- All the logs for node1 will go to the same partition always. And since the messages are always going to the same partition, we will have the order of the messages maintained.
+- This won't be possible if the same partition had multiple consumers in the same group
+- If you **read the same partition in the different consumers**, who are in different groups, then also for each consumer group the messages will end up **ordered**.
+
+<p align="center">
+    <img alt="mock" width="500" src="images/order_guarantee_consumer_group.png">
+</p>
+
+* For 3 partitions, you can have a max of 3 consumers, if you had 4 consumers, one consumer will be sitting idle.
+* But for 3 partitions you can have 2 consumers, then one consumer will read from one partition and one consumer will read from two partitions
+* If one consumer goes down in this case, the last surviving consumer will end up reading from all the three partitions, and when new consumers are added back, again partition would be split between consumers. **This is called re-balancing**.
+
+<p align="center">
+    <img alt="mock" width="500" src="images/order_guarantee_consumer_group_2.png">
+</p>
