@@ -168,3 +168,8 @@ Example:
   * When a partition is replicated onto 3 brokers, one of the brokers will act as the leader for that partition and the rest two will be followers
   * Data is always written on the leader borker and then replicated to the followers
   * This way we don't lose data nor availability of the cluster, and if the leader goes down another leader is elected
+
+### Zookeeper
+
+* Works as the central configuration and consensus management system for Kafka
+* It tracks the brokers, topics, and partition assignment, leader election, basically al the metadata about the cluster
