@@ -147,3 +147,12 @@ Example:
 <p align="center">
     <img alt="mock" width="500" src="images/order_guarantee_consumer_group_2.png">
 </p>
+
+### Broker
+
+> Is a single Kafka server
+
+* Receive messages from producers
+* Assign offset to messages
+* Commit messages to the partition log
+  * Write data to disk
