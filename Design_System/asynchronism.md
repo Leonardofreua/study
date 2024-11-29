@@ -156,3 +156,15 @@ Example:
 * Assign offset to messages
 * Commit messages to the partition log
   * Write data to disk
+
+### Cluster
+
+> Group of broker nodes working together to provide scalability, availability, and fault tolerance.
+
+* One of the brokers in a cluster works as the Controller, which basically assigns partitions to brokers, monitors for broker failure to do certain administrative stuff
+* Partitions are replicated on multiple brokers depending on the replication factor of the topic to have **failover** capability. Example:
+  * For a topic of replication factor 3
+  * Each partition of that topic will live onto 3 different brokers
+  * When a partition is replicated onto 3 brokers, one of the brokers will act as the leader for that partition and the rest two will be followers
+  * Data is always written on the leader borker and then replicated to the followers
+  * This way we don't lose data nor availability of the cluster, and if the leader goes down another leader is elected
