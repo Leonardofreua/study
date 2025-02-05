@@ -22,6 +22,12 @@
 
 ## Eviction Polices
 
+<img alt="mock" width="600" src="images/LRU_vs_LFU_vs_LIFO.png">
+
+* **LFU** is best when: Some items are accessed much more frequently than others.
+* **LRU** is best when: Recent access is a good indicator of future access.
+* **FIFO** is best when: Simplicity is needed, and cache lifespan is time-based.
+
 ### Least Recently Used (LRU)
 
 <p align="center">
