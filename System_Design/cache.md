@@ -38,6 +38,14 @@
   <img alt="mock" width="500" src="images/LRU_2.png">
 </p>
 
+### Least Frequently Used (LFU)
+
+<p align="center">
+  <img alt="mock" width="500" src="images/LFU.png">
+</p>
+
+> Consider a cache with items X, Y, and Z. If item Z has been accessed fewer times than items X and Y, the LFU policy will retain the items X and Y and potentially evict item Z when the cache reaches its capacity.
+
 
 References:
 - [Caching](https://www.geeksforgeeks.org/caching-system-design-concept-for-beginners/#5-types-of-cache)
