@@ -46,6 +46,30 @@
 
 > Consider a cache with items X, Y, and Z. If item Z has been accessed fewer times than items X and Y, the LFU policy will retain the items X and Y and potentially evict item Z when the cache reaches its capacity.
 
+### First-In-First-Out (FIFO)
+
+<p align="center">
+  <img alt="mock" width="500" src="images/FIFO.png">
+</p>
+
+- Data is stored in the cache in the order it arrives
+- The item that has been present in the cache for the longest time is the first to be evicted when the cache reaches its capacity;
+
+Example:
+
+```
+Imagine a cache with a capacity of three items:
+
+A is added to the cache.
+B is added to the cache.
+C is added to the cache.
+At this point, the cache is full (capacity = 3)
+```
+
+If a new item, D, needs to be added, the FIFO policy would dictate that the oldest item, A, should be evicted. The cache would then look like:
+
+- D is added to the cache (A is evicted).
+- The order of items in the cache now is B, C, and D, reflecting the chronological order of their arrival.
 
 References:
 - [Caching](https://www.geeksforgeeks.org/caching-system-design-concept-for-beginners/#5-types-of-cache)
