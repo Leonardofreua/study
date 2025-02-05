@@ -20,5 +20,26 @@
   - You might be playing back the dealys from the previous day or something;
   - And don't turn the system back on so that the cache layer is not powered until you are sure that it has been properly warmed up.
 
+## Eviction Polices
+
+### Least Recently Used (LRU)
+
+<p align="center">
+  <img alt="mock" width="500" src="images/LRU.png">
+</p>
+
+- A double linked list is used for to contains the accessed elements:
+  - In this structure each node contains two pointers, one to the next node and one to the previous node;
+  - The list is sorted according to the order in which the data was accessed, with the most recently used node at the beginning (head) of the list and the least recently used node at the end (tail);
+  - When a piece of data is accessed, it is moved to the beginning of the list, indicating that it was the most recently used
+  - If the cache is full and new data needs to be stored, the LRU removes the last node that reprensents the last used data.
+
+<p align="center">
+  <img alt="mock" width="500" src="images/LRU_2.png">
+</p>
+
+
 References:
 - [Caching](https://www.geeksforgeeks.org/caching-system-design-concept-for-beginners/#5-types-of-cache)
+- [How to Implement LRU Cache in Java](https://www.baeldung.com/java-lru-cache)
+- [Cache Eviction Policies](https://www.geeksforgeeks.org/cache-eviction-policies-system-design/#1-least-recently-usedlru)
