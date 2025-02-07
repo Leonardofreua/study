@@ -77,7 +77,42 @@ If a new item, D, needs to be added, the FIFO policy would dictate that the olde
 - D is added to the cache (A is evicted).
 - The order of items in the cache now is B, C, and D, reflecting the chronological order of their arrival.
 
+# Content Delivery Network (CDN)
+> Is a distributed network of servers that work together to deliver content (like images, videos, and static files).
+
+- These servers, called as edge servers, which are strategically positioned across various geographical locations
+- Help improve the performance, reliability, and scalability of websites and web applications by caching content closer to users, reducing latency, and offloading traffic from origin servers.
+- **Faaster content delivery**: Improve load times and lower latency by reducing the physical distance that data must travel by caching content
+- **Scalability:** Help websites handle traffic spikes and high loeads by distributing the load across multiple servers. Essential for websites with global audience.
+- **Redundancy and Reliability:** Offer redundancy by storing copies of content across multiple servers. If one server fails, another server can seamlessly take over, ensuring continuous availability of the content.
+- **Security:** Provide addtional security features, such as DDos protection, SSL/TLS encryption, and web application firewalls.
+
+<p align="center">
+  <img alt="mock" width="500" src="images/CDN.png">
+</p>
+
+## Types
+
+### Public
+> These CDNs are used to swiftly and effectively provide content, including pictures, movies, and other static files, to users.
+
+- Cloudflre
+- Akamai
+- Amazon CloudFront
+
+### Private
+> These CDNs are used to distribute content to internal users or clients, and they are frequently set up on a private cloud or within an organization's own infrastructure
+
+- Google Cloud CDN
+- Netflix Open Connect
+
+### Hybrid
+> Combine elements of both public and private. This approach allows organizations to optimize content delivery based on factors such as cost, performance, and security requirements.
+
+- Microsoft Azure CDN
+
 References:
 - [Caching](https://www.geeksforgeeks.org/caching-system-design-concept-for-beginners/#5-types-of-cache)
 - [How to Implement LRU Cache in Java](https://www.baeldung.com/java-lru-cache)
 - [Cache Eviction Policies](https://www.geeksforgeeks.org/cache-eviction-policies-system-design/#1-least-recently-usedlru)
+- [What is Content Delivery Network(CDN) in System Design](https://www.geeksforgeeks.org/what-is-content-delivery-networkcdn-in-system-design/)
