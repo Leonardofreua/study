@@ -30,6 +30,8 @@
 
 ### Least Recently Used (LRU)
 
+> [Source code](https://github.com/Leonardofreua/study/blob/main/Algorithms/cache/lru.go)
+
 <p align="center">
   <img alt="mock" width="500" src="images/LRU.png">
 </p>
