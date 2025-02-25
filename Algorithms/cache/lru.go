@@ -11,34 +11,33 @@ import (
 	"container/list"
 )
 
-type Node struct {
-	Data   int
+type Node[T any] struct {
+	Data   T
 	KeyPtr *list.Element
 }
 
-type LRUCache struct {
+type LRUCache[T any] struct {
 	Queue    *list.List
-	Items    map[int]*Node
+	Items    map[int]*Node[T]
 	Capacity int
 }
 
-func Init(capacity int) LRUCache {
-	return LRUCache{
+func Init[T any](capacity int) LRUCache[T] {
+	return LRUCache[T]{
 		Queue:    list.New(),
-		Items:    make(map[int]*Node),
+		Items:    make(map[int]*Node[T]),
 		Capacity: capacity,
 	}
 }
 
-func (l *LRUCache) Put(key int, value int) {
+func (l *LRUCache[T]) Put(key int, value T) {
 	if item, ok := l.Items[key]; !ok {
 		if l.Capacity == len(l.Items) {
-			// if it's full, remove latest element from list and map
 			back := l.Queue.Back()
 			l.Queue.Remove(back)
 			delete(l.Items, back.Value.(int))
 		}
-		l.Items[key] = &Node{Data: value, KeyPtr: l.Queue.PushFront(key)}
+		l.Items[key] = &Node[T]{Data: value, KeyPtr: l.Queue.PushFront(key)}
 	} else {
 		item.Data = value
 		l.Items[key] = item
@@ -46,10 +45,12 @@ func (l *LRUCache) Put(key int, value int) {
 	}
 }
 
-func (l *LRUCache) Get(key int) int {
+func (l *LRUCache[T]) Get(key int) T {
 	if item, ok := l.Items[key]; ok {
 		l.Queue.MoveToFront(item.KeyPtr)
 		return item.Data
 	}
-	return -1
+
+	var zero T
+	return zero
 }
