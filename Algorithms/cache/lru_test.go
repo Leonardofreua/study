@@ -1,13 +1,11 @@
 package cache
 
-import (
-	"testing"
-)
+import "testing"
 
 func TestLRUCache(t *testing.T) {
 
 	t.Run("Put number and Get is correct", func(t *testing.T) {
-		cache := Init[int](1)
+		cache := InitLRU[int](1)
 
 		key, value := 1, 1
 		cache.Put(key, value)
@@ -19,7 +17,7 @@ func TestLRUCache(t *testing.T) {
 	})
 
 	t.Run("Get data not stored in cache should return 0", func(t *testing.T) {
-		cache := Init[int](1)
+		cache := InitLRU[int](1)
 
 		got := cache.Get(99)
 
@@ -29,7 +27,7 @@ func TestLRUCache(t *testing.T) {
 	})
 
 	t.Run("Put data over capacity and Get should return 0", func(t *testing.T) {
-		cache := Init[int](3)
+		cache := InitLRU[int](3)
 
 		cache.Put(1, 1)
 		cache.Put(2, 2)
@@ -44,7 +42,7 @@ func TestLRUCache(t *testing.T) {
 	})
 
 	t.Run("Put key over capacity but recent key exists", func(t *testing.T) {
-		cache := Init[string](3)
+		cache := InitLRU[string](3)
 
 		cache.Put(1, "a")
 		cache.Put(2, "b")

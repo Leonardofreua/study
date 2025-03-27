@@ -7,37 +7,35 @@
 
 package cache
 
-import (
-	"container/list"
-)
+import "container/list"
 
-type Node[T any] struct {
+type LRUNode[T any] struct {
 	Data   T
 	KeyPtr *list.Element
 }
 
-type LRUCache[T any] struct {
+type LRU[T any] struct {
 	Queue    *list.List
-	Items    map[int]*Node[T]
+	Items    map[int]*LRUNode[T]
 	Capacity int
 }
 
-func Init[T any](capacity int) LRUCache[T] {
-	return LRUCache[T]{
+func InitLRU[T any](capacity int) LRU[T] {
+	return LRU[T]{
 		Queue:    list.New(),
-		Items:    make(map[int]*Node[T]),
+		Items:    make(map[int]*LRUNode[T]),
 		Capacity: capacity,
 	}
 }
 
-func (l *LRUCache[T]) Put(key int, value T) {
+func (l *LRU[T]) Put(key int, value T) {
 	if item, ok := l.Items[key]; !ok {
 		if l.Capacity == len(l.Items) {
 			back := l.Queue.Back()
 			l.Queue.Remove(back)
 			delete(l.Items, back.Value.(int))
 		}
-		l.Items[key] = &Node[T]{Data: value, KeyPtr: l.Queue.PushFront(key)}
+		l.Items[key] = &LRUNode[T]{Data: value, KeyPtr: l.Queue.PushFront(key)}
 	} else {
 		item.Data = value
 		l.Items[key] = item
@@ -45,7 +43,7 @@ func (l *LRUCache[T]) Put(key int, value T) {
 	}
 }
 
-func (l *LRUCache[T]) Get(key int) T {
+func (l *LRU[T]) Get(key int) T {
 	if item, ok := l.Items[key]; ok {
 		l.Queue.MoveToFront(item.KeyPtr)
 		return item.Data
